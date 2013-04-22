@@ -35,7 +35,14 @@ from collections import defaultdict
 
 from django.conf import settings
 import django.db.models.signals
-from django.contrib.auth.models import User, Permission, Group
+from django.contrib.auth.models import Permission, Group
+try:
+    from django.contrib.auth import get_user_model
+except ImportError:
+    from django.contrib.auth.models import User
+else:
+    User = get_user_model()
+    
 from django.test import TestCase
 
 import django_auth_ldap.models
